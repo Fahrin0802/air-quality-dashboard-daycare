@@ -249,7 +249,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                     </table>
                   </div> 
 
-                  <img src="/img/pm2_scale.png" className="mx-auto my-4 w-30 h-90"/>
+                  {/* <img src="/img/pm2_scale.png" className="mx-auto my-4 w-30 h-90"/> */}
                 </div>
 
                 <div className="flex justify-center mt-4">
