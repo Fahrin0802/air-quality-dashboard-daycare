@@ -287,7 +287,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
             <button type="button" onClick={toggle_popup}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded margin-4"
             >
-              Show Popup
+              Show Tables
             </button>
             
             <div className="w-200 h-10"></div>

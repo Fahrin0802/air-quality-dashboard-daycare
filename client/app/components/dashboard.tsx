@@ -152,20 +152,20 @@ export default function Dashboard({ sensors, alerts }: { sensors: any; alerts: A
 
         <DashboardSearch sensors={sensors} />
 
-        <div className="w-full max-w-4xl">
-        <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-        <h2 className="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2 text-center">
+        {/* <div className="w-full max-w-4xl"> */}
+        {/* <div className="bg-white rounded-lg shadow-md p-4 mb-4"> */}
+        {/* <h2 className="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2 text-center">
         Create Alerts to Recieve Emails when the AQHI/AQHI+ crosses a threshold value
-        </h2>
-        <div className="flex flex-col md:flex-row gap-4">
+        </h2> */}
+        {/* <div className="flex flex-col md:flex-row gap-4"> */}
           {/* FR23 - Alert.Subscription - The system shall allow users to subscribe to receive alerts through email. */}
-          <div className="flex-1 bg-white rounded-lg shadow-md p-4 mb-4 md:mb-0">
-            <h3 className="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2 text-center">
+          {/* <div className="flex-1 bg-white rounded-lg shadow-md p-4 mb-4 md:mb-0"> */}
+            {/* <h3 className="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2 text-center">
               Add New Alerts 
-            </h3>
-            <UnauthenticatedTemplate>
+            </h3> */}
+            {/* <UnauthenticatedTemplate>
               <p className="mt-2">Please log in to add new alerts.</p>
-            </UnauthenticatedTemplate>
+            </UnauthenticatedTemplate> */}
             <AuthenticatedTemplate>
               {/* FR26 - Alert.Customization - The system shall allow users to customize their alerts settings, including alert name, address and threshold for receiving alerts. */}
               <Form method="post" className="space-y-7" reloadDocument>
@@ -295,10 +295,10 @@ export default function Dashboard({ sensors, alerts }: { sensors: any; alerts: A
                 </button>
               </Form>
             </AuthenticatedTemplate>
-          </div>
+          {/* </div> */}
 
           {/* List */}
-          <div className="flex-1 bg-white rounded-lg shadow-md p-4">
+          {/* <div className="flex-1 bg-white rounded-lg shadow-md p-4">
             <h3 className="text-xl font-semibold mb-2 border-b-2 border-gray-300 pb-2 text-center">
               View Existing Alerts
             </h3>
@@ -316,7 +316,7 @@ export default function Dashboard({ sensors, alerts }: { sensors: any; alerts: A
                 </thead>
                 <tbody>
                 {/* FR24 - Alert.Unsubscription - The system shall allow users to delete alerts they have signed up for. */}
-                {alerts.map((alert, index) => (
+                {/* {alerts.map((alert, index) => (
                     <tr key={index} >
                     <td className="px-4 py-2 text-center">{alert.name}</td>
                     <td className="px-4 py-2 text-center">{alert.threshold}</td>
@@ -337,14 +337,14 @@ export default function Dashboard({ sensors, alerts }: { sensors: any; alerts: A
                         </Form>
                     </td>
                     </tr>
-                ))}
-                </tbody>
+                ))} */}
+                {/* </tbody>
             </table>
-            </AuthenticatedTemplate>
-          </div>
-          </div>
-        </div>
-        </div>
+            </AuthenticatedTemplate> */}
+          {/* </div> */}
+          {/* </div> */}
+        {/* </div> */}
+        {/* </div> */}
 
         <div className="w-full max-w-4xl mt-4">
         <div className="flex items-center bg-white rounded-lg shadow-md p-5">

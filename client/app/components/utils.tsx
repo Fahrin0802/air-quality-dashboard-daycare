@@ -111,7 +111,7 @@ function get_three_closest_purple_sensors(data: any[][]): any[][] {
   return data.slice(0, 3);
 }
 
-function corrected_pm25(raw_60_min_average_pm25: number, humidity: number){
+function corrected_pm25(raw_average_pm25: number, humidity: number){
   var RH = humidity;
   if (humidity < 30){
     RH = 30;
@@ -119,8 +119,8 @@ function corrected_pm25(raw_60_min_average_pm25: number, humidity: number){
     RH = 70;
   }
 
-  const PM = raw_60_min_average_pm25 /(1 + (0.24/((100/RH) - 1)));
-  console.log("humidity", humidity, RH);
+  const PM = raw_average_pm25 /(1 + (0.24/((100/RH) - 1)));
+  // console.log("humidity", humidity, RH);
   return PM;
 }
 
