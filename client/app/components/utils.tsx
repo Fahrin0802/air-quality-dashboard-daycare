@@ -127,40 +127,41 @@ function corrected_pm25(raw_average_pm25: number, humidity: number){
 //
 const AQHI_PLUS = (pm25: number) => {
   // DIVIDE BY 10 and ROUND IT UP
-  let aqhi = -1;
+  let aqhi_plus = -1;
   if (0 <= pm25 && pm25 < 10){
-    aqhi = 1;
+    aqhi_plus = 1;
   }
   else if (10 <= pm25 && pm25 < 20){
-    aqhi = 2;
+    aqhi_plus = 2;
   }
   else if (20 <= pm25 && pm25 < 30){
-    aqhi = 3;
+    aqhi_plus = 3;
   }
   else if (30 <= pm25 && pm25 < 40){
-    aqhi = 4;
+    aqhi_plus = 4;
   }
   else if (40 <= pm25 && pm25 < 50){
-    aqhi = 5;
+    aqhi_plus = 5;
   }
   else if (50 <= pm25 && pm25 < 60){
-    aqhi = 6;
+    aqhi_plus = 6;
   }
   else if (60 <= pm25 && pm25 < 70){
-    aqhi = 7;
+    aqhi_plus = 7;
   }
   else if (70 <= pm25 && pm25 < 80){
-    aqhi = 8;
+    aqhi_plus = 8;
   }
   else if (80 <= pm25 && pm25 < 90){
-    aqhi = 9;
+    aqhi_plus = 9;
   }
   else if (90 <= pm25 && pm25 < 100){
-    aqhi = 10;
+    aqhi_plus = 10;
   }
   else if (100 <= pm25){
-    aqhi = 11;
+    aqhi_plus = 11;
   }
+  return aqhi_plus;
 }
 
 /**
