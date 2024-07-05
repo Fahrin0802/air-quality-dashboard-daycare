@@ -111,6 +111,7 @@ function get_three_closest_purple_sensors(data: any[][]): any[][] {
   return data.slice(0, 3);
 }
 
+
 function corrected_pm25(raw_average_pm25: number, humidity: number){
   var RH = humidity;
   if (humidity < 30){
@@ -124,7 +125,7 @@ function corrected_pm25(raw_average_pm25: number, humidity: number){
   return PM;
 }
 
-//
+
 const AQHI_PLUS = (pm25: number) => {
   // DIVIDE BY 10 and ROUND IT UP
   let aqhi_plus = -1;
@@ -163,6 +164,7 @@ const AQHI_PLUS = (pm25: number) => {
   }
   return aqhi_plus;
 }
+
 
 /**
 * Fetch members of a PurpleAir group with specific fields.
