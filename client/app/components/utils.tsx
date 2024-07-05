@@ -104,13 +104,35 @@ function add_distance_to_ACA_station(all_station_aqhi_map: Map<any, any>, ulat: 
 
 function get_three_closest_purple_sensors(data: any[][]): any[][] {
   // Sort the array based on the last element (distance) of each inner array
-  data.sort((a, b) => a[a.length - 1] - b[b.length - 1]);
+  data.sort((a, b) => a[11] - b[11]);
 
   // Return the first three elements of the sorted array
   console.log(data.slice(0, 3));
   return data.slice(0, 3);
 }
 
+function corrected_pm25(raw_60_min_average_pm25: number, humidity: number){
+  var RH = humidity;
+  if (humidity < 30){
+    RH = 30;
+  } else if (humidity > 70){
+    RH = 70;
+  }
+
+  const PM = raw_60_min_average_pm25 /(1 + (0.24/((100/RH) - 1)));
+  console.log("humidity", humidity, RH);
+  return PM;
+}
+
+const AQHI_PLUS = (pm25: number) => {
+  const aqhi = Math.ceil(pm25/10);
+  if (aqhi != 0){
+    return aqhi;
+  }
+  else{
+    return 1;
+  }
+}
 /**
 * Fetch members of a PurpleAir group with specific fields.
 * @param {string} fields - The fields to fetch.
@@ -137,6 +159,8 @@ async function get_purpleair_sensor_data(fields: string, ulat: number, ulon: num
   const data = datax["data"];
   for(const inner of data){
       inner.push(calculateDistance(inner[3], inner[4], ulat, ulon))
+      inner.push(corrected_pm25(inner[8], inner[5]));
+      inner.push(AQHI_PLUS(inner[12]));
   }
   return data;
 
@@ -199,7 +223,8 @@ export {
   get_three_closest_purple_sensors,
   fetch_ACA_Station_AQHI,
   add_distance_to_ACA_station,
-  fetch_ACA_Community_AQHI
+  fetch_ACA_Community_AQHI,
+  corrected_pm25
 };
 
 

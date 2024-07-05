@@ -164,19 +164,15 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
 
 
     let worst_value = 0;
+    if (nearest_station_AQHI[0]){
+      worst_value = parseFloat(nearest_station_AQHI[0].AqhiStatus);
+    }
 
-    nearest_station_AQHI.forEach((station) => {
-      if (station.AqhiStatus && parseFloat(station.AqhiStatus) > worst_value) {
-        worst_value = parseFloat(station.AqhiStatus);
+    nearest_pm2.forEach((sensor) => {
+      if (sensor[13] && sensor[13] > worst_value) {
+        worst_value = sensor[13];
       }
     });
-  
-    
-    // nearest_pm2.forEach((sensor) => {
-    //   if (sensor.aqhi_plus && sensor.aqhi_plus > worst_value) {
-    //     worst_value = sensor.aqhi_plus;
-    //   }
-    // });
   
     worst_value = Math.round(worst_value);
 
@@ -185,19 +181,23 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
         
         {display_popup && (
         <>
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggle_popup}></div>
-          <div className="fixed inset-0 flex items-center justify-center md:justify-end z-50 pr-4 md:pr-8 lg:pr-12 xl:pr-16">
-            <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg 
-                max-w-full md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 
-                h-4/5 md:h-auto lg:h-auto xl:h-au overflow-y-auto transform scale-75"
-            >
-            <div className="text-center">
+          <div className="w-full mt-4 overflow-hidden"> 
+            <div className="flex flex-col md:flex-row justify-between gap-2">
+              <div className="flex-1 bg-white rounded-lg shadow m-1 p-4 overflow-x-auto">
+              </div>
+              {/*<div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggle_popup}></div>
+                <div className="fixed inset-0 flex items-center justify-center md:justify-end z-50 pr-4 md:pr-8 lg:pr-12 xl:pr-16">
+                <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg 
+                    max-w-full md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 
+                    h-4/5 md:h-auto lg:h-auto xl:h-au overflow-y-auto transform scale-75"
+                > */}
+              <div className="text-center">
 
                 <div className="flex flex-col md:flex-row justify-between gap-4">
                   {/* GEOMET API STATIONS */}
                   <div className="flex-1 bg-white rounded-lg shadow m-1 p-4 overflow-x-auto">
-                    <h4 className="block text-med font-medium border-b text-black-700 text-center"> Continuous Monitoring Stations (NO2, O3, PM2.5)</h4>
-                    {/* <h4 className="block text-med font-medium text-gray-700 text-center"> (NO2, O3, PM2.5) </h4> */}
+                    <h4 className="block text-med font-medium border-b text-black-700 text-center"> Continuous Monitoring Stations </h4>
+                    <h4 className="block text-med font-medium text-gray-700 text-center"> (NO2, O3, PM2.5) </h4>
                       {/* <p className="text-center p-2"> */}
                           {/* <strong style={{ fontSize: '20px' }}> */}
                               {/* Community AQHI: {parseFloat(community_AQHI).toFixed(2)} */}
@@ -223,17 +223,17 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                     </table>
                   </div>
 
-                   {/* PURPLE AIR MONITORS  */}
+                    {/* PURPLE AIR MONITORS  */}
                   <div className="flex-1 bg-white rounded-lg shadow-md m-1 p-4 overflow-x-auto">
                     <h4 className="block text-med font-medium border-b text-black-700 text-center">Microsensors (PM 2.5)</h4>
                     <p className="text-center p-2">
-                         
+                          
                     </p>
                     <table className="min-w-full">
                       <thead>
                         <tr>
                           <th className="px-3 py-1.5 text-center border-b border-gray-300">Sensor ID</th>
-                          <th className="px-3 py-1.5 text-center border-b border-gray-300">PM2.5</th>
+                          <th className="px-3 py-1.5 text-center border-b border-gray-300">PM2.5_AQHI</th>
                           <th className="px-3 py-1.5 text-center border-b border-gray-300">Distance (km)</th>
                         </tr>
                       </thead>
@@ -241,7 +241,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                         {nearest_pm2.map((sensor, index) => (
                           <tr key={index}>
                             <td className="px-3 py-1.5 text-center">{sensor[2]}</td>
-                            <td className="px-3 py-1.5 text-center">{sensor[8]}</td>
+                            <td className="px-3 py-1.5 text-center">{sensor[13]}</td>
                             <td className="px-3 py-1.5 text-center">{sensor[11].toFixed(2)}</td>
                           </tr>
                         ))}
@@ -255,21 +255,21 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                 <div className="flex justify-center mt-4">
                   <p className="bg-yellow-200 text-center rounded border p-2">
                     <strong style={{ fontSize: '18px' }}>
-                        Follow <a href="https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index/understanding-messages.html" className="text-blue-500 underline">recommendations</a> for an AQHI of {worst_value}
+                        Follow <a href="https://tomorrowfoundation.ca/protecting-little-lungs-outdoor-air-quality-and-childrens-health-recommendations-for-childcare-facilities/" className="text-blue-500 underline">recommendations</a> for an AQHI of {worst_value}
                     </strong>
                   </p>
                 </div>
                 <img src="/img/xAQHI.png" className="mx-auto my-4 w-96 h-30"/>
 
-                <button 
+                {/* <button 
                   onClick={toggle_popup} 
                   className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition duration-300">
                   Close
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
-          </>
+        </>
         )}
 
           <Map all_pm2={all_pm2} lat={lat} lon={lon} all_station_aqhi_map={all_station_aqhi_map} map={map} setMap={setMap}/>
