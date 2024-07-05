@@ -42,7 +42,13 @@ export const createPurpleAirMarker = (sensor: any, add_handler: LeafletEventHand
   const sensor_name = sensor[2];
   const sensor_lat = sensor[3];
   const sensor_lon = sensor[4];
-  const sensor_humidity = sensor[5];
+  let sensor_humidity = sensor[5];
+  if (sensor_humidity < 30){
+    sensor_humidity = 30;
+  }
+  else if (sensor_humidity > 70){
+    sensor_humidity = 70;
+  }
 
   // const sensor_pm2_10 = sensor[6];
   // const sensor_pm2_30 = sensor[7];
@@ -66,6 +72,7 @@ export const createPurpleAirMarker = (sensor: any, add_handler: LeafletEventHand
             <h1 className='text-lg font-bold'>{sensor_name}</h1>
             <div className='flex flex-col items-start px-2'>
               <div><span className='font-bold'>Updated:</span> {(new Date(sensor_ts*1000)).toLocaleString(navigator.language, {year:'numeric' ,month: 'short', day: '2-digit', hour:'numeric', minute:'numeric'})}<br /></div>
+              <div><span className='font-bold'>Humidity</span> <span className='font-bold'>{sensor_humidity}</span> </div>
               <div><span className='font-bold'>---------------------</span></div>
               <div><span className='font-bold'>10 min corr.</span> Average <span className='font-bold'>{sensor_pm2_10}</span> μg m<sup>-3</sup></div>
               <div><span className='font-bold'>30 min corr..</span> Average <span className='font-bold'>{sensor_pm2_30}</span> μg m<sup>-3</sup></div>

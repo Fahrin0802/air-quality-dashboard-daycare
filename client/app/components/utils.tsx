@@ -125,7 +125,10 @@ function corrected_pm25(raw_60_min_average_pm25: number, humidity: number){
 }
 
 const AQHI_PLUS = (pm25: number) => {
+  // DIVIDE BY 10 and ROUND IT UP
   const aqhi = Math.ceil(pm25/10);
+
+  // MIN POSSIBLE VALUE SHOULD BE 1 
   if (aqhi != 0){
     return aqhi;
   }
@@ -133,6 +136,7 @@ const AQHI_PLUS = (pm25: number) => {
     return 1;
   }
 }
+
 /**
 * Fetch members of a PurpleAir group with specific fields.
 * @param {string} fields - The fields to fetch.
