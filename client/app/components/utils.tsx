@@ -124,6 +124,7 @@ function corrected_pm25(raw_60_min_average_pm25: number, humidity: number){
   return PM;
 }
 
+//
 const AQHI_PLUS = (pm25: number) => {
   // DIVIDE BY 10 and ROUND IT UP
   const aqhi = Math.ceil(pm25/10);
