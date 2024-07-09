@@ -257,7 +257,8 @@ export {
   fetch_ACA_Station_AQHI,
   add_distance_to_ACA_station,
   fetch_ACA_Community_AQHI,
-  corrected_pm25
+  corrected_pm25,
+  AQHI_PLUS
 };
 
 

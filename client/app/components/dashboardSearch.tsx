@@ -5,6 +5,7 @@ import Map  from "app/components/map.client";
 import { useGlobalLoadingState } from "remix-utils/use-global-navigation-state";
 import { renderToString } from "react-dom/server";
 
+
 import {
   extractCityName,
   get_purpleair_sensor_data,
@@ -12,7 +13,9 @@ import {
   fetch_ACA_Station_AQHI,
   add_distance_to_ACA_station,
   //fetch_ACA_Community_AQHI,
-  calculateDistance
+  calculateDistance,
+  corrected_pm25,
+  AQHI_PLUS
 } from "./utils"
 
 interface Station {
@@ -256,6 +259,15 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                   <p className="bg-yellow-200 text-center rounded border p-2">
                     <strong style={{ fontSize: '18px' }}>
                         Follow <a href="https://tomorrowfoundation.ca/protecting-little-lungs-outdoor-air-quality-and-childrens-health-recommendations-for-childcare-facilities/" className="text-blue-500 underline">recommendations</a> for an AQHI of {worst_value}
+                    </strong>
+                  </p>
+                </div>
+
+                <div className="flex justify-center mt-4">
+                  <p className="bg-blue-200 text-center rounded border p-2">
+                    <strong style={{ fontSize: '18px' }}>
+                    
+                        The 10-minutes AQHI from the nearest microsensor is {AQHI_PLUS(corrected_pm25(nearest_pm2[0][6], nearest_pm2[0][5]))}
                     </strong>
                   </p>
                 </div>
