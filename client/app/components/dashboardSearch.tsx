@@ -15,7 +15,8 @@ import {
   //fetch_ACA_Community_AQHI,
   calculateDistance,
   corrected_pm25,
-  AQHI_PLUS
+  AQHI_PLUS,
+  getFullAddress
 } from "./utils"
 
 interface Station {
@@ -104,8 +105,9 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
           const { latitude, longitude } = position.coords;
           setLat(latitude);
           setLon(longitude);
-          setAddress("Current Location");
-          //extractCommunityAQHI("xx");
+          const tempAddress = await getFullAddress(latitude, longitude);
+          setAddress(tempAddress);
+          extractCommunityAQHI(tempAddress.split(',')[1].trim());
 
           const x = await fetch_ACA_Station_AQHI();
           set_all_station_aqhi_map(x);
@@ -267,7 +269,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                   <p className="bg-blue-200 text-center rounded border p-2">
                     <strong style={{ fontSize: '18px' }}>
                     
-                        The 10-minutes AQHI from the nearest microsensor is {AQHI_PLUS(corrected_pm25(nearest_pm2[0][6], nearest_pm2[0][5]))}
+                        The 10-minute AQHI from the nearest microsensor is {AQHI_PLUS(corrected_pm25(nearest_pm2[0][6], nearest_pm2[0][5]))}
                     </strong>
                   </p>
                 </div>
