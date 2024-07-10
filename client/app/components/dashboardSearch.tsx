@@ -107,7 +107,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
           setLon(longitude);
           const tempAddress = await getFullAddress(latitude, longitude);
           setAddress(tempAddress);
-          extractCommunityAQHI(tempAddress.split(',')[1].trim());
+          //extractCommunityAQHI(tempAddress.split(',')[1].trim());
 
           const x = await fetch_ACA_Station_AQHI();
           set_all_station_aqhi_map(x);
