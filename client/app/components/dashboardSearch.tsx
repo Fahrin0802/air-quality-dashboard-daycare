@@ -269,7 +269,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                   <p className="bg-blue-200 text-center rounded border p-2">
                     <strong style={{ fontSize: '18px' }}>
                     
-                        The 10-minute AQHI from the nearest microsensor is {AQHI_PLUS(corrected_pm25(nearest_pm2[0][6], nearest_pm2[0][5]))}
+                        The 10-minute PM2.5 AQHI from the nearest microsensor is {AQHI_PLUS(corrected_pm25(nearest_pm2[0][6], nearest_pm2[0][5]))}
                     </strong>
                   </p>
                 </div>

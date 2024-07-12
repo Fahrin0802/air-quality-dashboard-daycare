@@ -116,7 +116,7 @@ export const createStationMarker = (sensor: Station, add_handler: LeafletEventHa
       <div className='text-sm p-2'>
           <h1 className='text-lg font-bold'>{sensor.location_name}</h1>
           <div className='flex flex-col items-start'>
-            <div><span className='font-bold'>Updated</span>: {new Date(sensor.ReadingDate).toLocaleString(navigator.language, {year:'numeric' ,month: 'short', day: '2-digit', hour:'numeric'})}</div>
+            <div><span className='font-bold'>Updated</span>: {new Date(sensor.ReadingDate).toLocaleString(navigator.language, {year:'numeric' ,month: 'short', day: '2-digit', hour:'numeric', minute:'numeric'})}</div>
           </div>
       </div>
       </Tooltip>
