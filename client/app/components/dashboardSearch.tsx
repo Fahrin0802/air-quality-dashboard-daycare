@@ -212,9 +212,9 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                   <div className="flex-1 bg-white rounded-lg shadow m-1 p-4 overflow-x-auto">
                     <h4 className="block text-med font-medium border-b text-black-700 text-center"> Continuous Monitoring Stations </h4>
                     <h4 className="block text-med font-medium text-gray-700 text-center"> (NO2, O3, PM2.5) </h4>
-                      <p className="bg-blue-200 text-center rounded border p-2">
-                        <span style={{ fontSize: '18px' }}>
-                           Community {cityName} AQHI: {parseFloat(community_AQHI).toFixed(0)}
+                      <p className="bg-blue-200 text-center rounded border p-1">
+                        <span style={{ fontSize: '16px' }}>
+                           Community ({cityName}) AQHI: {parseFloat(community_AQHI).toFixed(0)}
                         </span>
                       </p>
                       <table className="min-w-full">
