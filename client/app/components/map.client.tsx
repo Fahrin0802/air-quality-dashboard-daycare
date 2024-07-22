@@ -17,7 +17,7 @@ import HighlightControl from './HighlightControl';
 import { LeafletEventHandlerFn } from 'leaflet';
 import { EventCallbackFunction } from '@azure/msal-browser';
 import L from 'leaflet';
-import {corrected_pm25} from './utils';
+import {corrected_pm25, AQHI_PLUS} from './utils';
 
 
 const purpleair_data: {[key: string]: [any, L.Marker]} = {};
@@ -36,7 +36,7 @@ interface StationMap {
   [key: string]: Station;
 }
 
-export const createPurpleAirMarker = (sensor: any, add_handler: LeafletEventHandlerFn, button_function: MouseEventHandler<HTMLButtonElement>) => {
+export const createPurpleAirMarker = (sensor: any, add_handler: LeafletEventHandlerFn, button_function: MouseEventHandler<HTMLButtonElement>, toggle_pm25: boolean) => {
   const sensor_id = sensor[0];
   const sensor_ts = sensor[1];
   const sensor_name = sensor[2];
@@ -60,11 +60,17 @@ export const createPurpleAirMarker = (sensor: any, add_handler: LeafletEventHand
   const sensor_pm2_6 = corrected_pm25(sensor[9], sensor_humidity).toFixed(2);
   const sensor_pm2_24 = corrected_pm25(sensor[10], sensor_humidity).toFixed(2);
   const sensor_distance = sensor[11];
-  const sensor_corrected_pm25 = sensor[12];
-  const sensor_AQHI_plus = sensor[13];
+  
+  var input_AQHI_plus;
+  if (toggle_pm25 == true){
+    input_AQHI_plus = AQHI_PLUS(parseFloat(sensor_pm2_10));
+  }
+  else{
+    input_AQHI_plus = AQHI_PLUS(parseFloat(sensor_pm2_60));
+  }
   
   return (
-    <Marker key={sensor_id} position={[sensor_lat, sensor_lon]} opacity={1} icon={createPurpleAirSensorIcon(sensor_AQHI_plus)} eventHandlers={{ add: add_handler}}>
+    <Marker key={sensor_id} position={[sensor_lat, sensor_lon]} opacity={1} icon={createPurpleAirSensorIcon(input_AQHI_plus)} eventHandlers={{ add: add_handler}}>
       
       {/* FR6 - Load.Sensor.Data - The system shall load the sensor data retrieved from the PurpleAir API based on the sensor. */}
       <Tooltip direction='right' offset={[20, 0]} position={[sensor_lat, sensor_lon]} opacity={0.9}>
@@ -159,8 +165,8 @@ export const createStationMarker = (sensor: Station, add_handler: LeafletEventHa
  };
   
 // TODO: update any to JsonifyObject
-export default function Map({ all_pm2, lat, lon, all_station_aqhi_map, map, setMap}: 
-  {all_pm2: any, lat: number, lon: number, all_station_aqhi_map: Map<any, any>, map: any, setMap: any}) {
+export default function Map({ all_pm2, lat, lon, all_station_aqhi_map, map, setMap, toggle_pm25}: 
+  {all_pm2: any, lat: number, lon: number, all_station_aqhi_map: Map<any, any>, map: any, setMap: any, toggle_pm25:boolean}) {
 
   const [plotDetails, setPlotDetails] = useState<any | null>({ show: false, sensorId: null });
 
@@ -205,7 +211,7 @@ export default function Map({ all_pm2, lat, lon, all_station_aqhi_map, map, setM
                       purpleair_data[sensor[0]] = [sensor, event.target]
                     },
                     // button click function
-                    () => showPlot(sensor[0]))
+                    () => showPlot(sensor[0]), toggle_pm25)
                   )
                 }
               )}
@@ -248,7 +254,7 @@ export default function Map({ all_pm2, lat, lon, all_station_aqhi_map, map, setM
       </MapContainer>
     </div>
       ),
-    [lat, lon, all_pm2, all_station_aqhi_map],
+    [lat, lon, all_pm2, all_station_aqhi_map,toggle_pm25],
   );
 
   return (
