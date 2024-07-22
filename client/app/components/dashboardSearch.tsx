@@ -47,7 +47,8 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
   const [addressSearchResults, setAddressSearchResults] = useState([]);
   const [address, setAddress] = useState("");
   const addressSearchRef = useRef<HTMLElement | null>(null);
-  
+  const [cityName, setCityName] = useState("");
+
   const [nearest_station_AQHI, set_nearest_station_AQHI] = useState<Station[]>([]);
   const [all_station_aqhi_map, set_all_station_aqhi_map] = useState<Map<any, any>>({});
   const [nearest_pm2, set_nearest_pm2] = useState<any[][]>([]);
@@ -109,7 +110,8 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
           setLon(longitude);
           const tempAddress = await getFullAddress(latitude, longitude);
           setAddress(tempAddress);
-          //extractCommunityAQHI(tempAddress.split(',')[1].trim());
+          setCityName(tempAddress.split(',')[1].trim());
+          extractCommunityAQHI(tempAddress.split(',')[1].trim());
 
           const x = await fetch_ACA_Station_AQHI();
           set_all_station_aqhi_map(x);
@@ -212,7 +214,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                     <h4 className="block text-med font-medium text-gray-700 text-center"> (NO2, O3, PM2.5) </h4>
                       <p className="bg-blue-200 text-center rounded border p-2">
                         <span style={{ fontSize: '18px' }}>
-                           Community AQHI: {parseFloat(community_AQHI).toFixed(0)}
+                           Community {cityName} AQHI: {parseFloat(community_AQHI).toFixed(0)}
                         </span>
                       </p>
                       <table className="min-w-full">
@@ -356,7 +358,11 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                   className="w-full text-left p-2 text-sm hover:bg-gray-100 result"
                   onClick={async () => {
                     setAddress(result.address.freeformAddress);
-                    extractCommunityAQHI(extractCityName(result.address.freeformAddress));
+                    
+                    const city_name = extractCityName(result.address.freeformAddress);
+                    setCityName(city_name);
+                    extractCommunityAQHI(city_name);
+
                     setLat(result.position.lat);
                     setLon(result.position.lon);
 
