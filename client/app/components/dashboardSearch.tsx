@@ -12,7 +12,7 @@ import {
   get_three_closest_purple_sensors,
   fetch_ACA_Station_AQHI,
   add_distance_to_ACA_station,
-  //fetch_ACA_Community_AQHI,
+  fetch_ACA_Community_AQHI,
   calculateDistance,
   corrected_pm25,
   AQHI_PLUS,
@@ -43,7 +43,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
   const [lon, setLon] = useState<number>(-113.4937);
   const [display_popup, set_display_popup] = useState(false);
   
-  //const [community_AQHI, set_community_AQHI ] = useState<string>("");
+  const [community_AQHI, set_community_AQHI ] = useState<string>("");
   const [addressSearchResults, setAddressSearchResults] = useState([]);
   const [address, setAddress] = useState("");
   const addressSearchRef = useRef<HTMLElement | null>(null);
@@ -94,10 +94,10 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
     }
   }
 
-  // const extractCommunityAQHI = async (input_city: string) => {
-  //   const community_aqhi = await fetch_ACA_Community_AQHI(input_city);
-  //   set_community_AQHI(community_aqhi);
-  // }
+  const extractCommunityAQHI = async (input_city: string) => {
+    const community_aqhi = await fetch_ACA_Community_AQHI(input_city);
+    set_community_AQHI(community_aqhi);
+  }
 
   // Gets the current lat and lon and stores it in the global variables
   const getCurrentLocation = () => {
@@ -174,6 +174,11 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
     if (nearest_station_AQHI[0]){
       worst_value = parseFloat(nearest_station_AQHI[0].AqhiStatus);
     }
+    if (community_AQHI){
+      if(parseFloat(community_AQHI) > worst_value){
+        worst_value = parseFloat(community_AQHI);
+      }
+    }
 
     nearest_pm2.forEach((sensor) => {
       if (sensor[13] && sensor[13] > worst_value) {
@@ -205,11 +210,11 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                   <div className="flex-1 bg-white rounded-lg shadow m-1 p-4 overflow-x-auto">
                     <h4 className="block text-med font-medium border-b text-black-700 text-center"> Continuous Monitoring Stations </h4>
                     <h4 className="block text-med font-medium text-gray-700 text-center"> (NO2, O3, PM2.5) </h4>
-                      {/* <p className="text-center p-2"> */}
-                          {/* <strong style={{ fontSize: '20px' }}> */}
-                              {/* Community AQHI: {parseFloat(community_AQHI).toFixed(2)} */}
-                          {/* </strong> */}
-                      {/* </p> */}
+                      <p className="bg-blue-200 text-center rounded border p-2">
+                        <span style={{ fontSize: '18px' }}>
+                           Community AQHI: {parseFloat(community_AQHI).toFixed(0)}
+                        </span>
+                      </p>
                       <table className="min-w-full">
                       <thead>
                         <tr>
@@ -351,7 +356,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                   className="w-full text-left p-2 text-sm hover:bg-gray-100 result"
                   onClick={async () => {
                     setAddress(result.address.freeformAddress);
-                    //extractCommunityAQHI(extractCityName(result.address.freeformAddress));
+                    extractCommunityAQHI(extractCityName(result.address.freeformAddress));
                     setLat(result.position.lat);
                     setLon(result.position.lon);
 
