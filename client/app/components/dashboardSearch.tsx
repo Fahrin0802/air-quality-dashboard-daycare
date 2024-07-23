@@ -214,7 +214,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                     <h4 className="block text-med font-medium text-gray-700 text-center"> (NO2, O3, PM2.5) </h4>
                       <p className="bg-blue-200 text-center rounded border p-1">
                         <span style={{ fontSize: '16px' }}>
-                           Community ({cityName}) AQHI: {parseFloat(community_AQHI).toFixed(0)}
+                           Community ({cityName}) AQHI: {parseFloat(community_AQHI) > 10 ? "10+" : parseFloat(community_AQHI).toFixed(0)}
                         </span>
                       </p>
                       <table className="min-w-full">
@@ -269,7 +269,7 @@ export function DashboardSearch({ sensors }: { sensors: any }) {
                 <div className="flex justify-center mt-4">
                   <p className="bg-yellow-200 text-center rounded border p-2">
                     <strong style={{ fontSize: '18px' }}>
-                        Follow <a href="https://tomorrowfoundation.ca/protecting-little-lungs-outdoor-air-quality-and-childrens-health-recommendations-for-childcare-facilities/" className="text-blue-500 underline">recommendations</a> for an AQHI of {worst_value}
+                        Follow <a href="https://tomorrowfoundation.ca/protecting-little-lungs-outdoor-air-quality-and-childrens-health-recommendations-for-childcare-facilities/" className="text-blue-500 underline">recommendations</a> for an AQHI of {worst_value > 10 ? "10+" : worst_value.toFixed(0)}
                     </strong>
                   </p>
                 </div>
