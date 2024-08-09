@@ -22,7 +22,7 @@ export default function Dashboard({ sensors, alerts }: { sensors: any; alerts: A
   const data = useRouteLoaderData<typeof loader>("root")!;
   const env = data?.env;
 
-  const [alerts, setAlerts] = useState<Alert[]>([]);
+  //const [alerts, setAlerts] = useState<Alert[]>([]);
   const [alertSearchResults, setAlertSearchResults] = useState([]);
   const [alertName, setAlertName] = useState("");
   const [alertAddress, setAlertAddress] = useState("");
