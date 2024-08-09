@@ -7,22 +7,22 @@ export const b2cPolicies = {
   },
   authorities: {
     signUpSignIn: {
-      authority: "https://tomorrowairquality.b2clogin.com/tomorrowairquality.onmicrosoft.com/B2C_1_signupsignin"
+      authority: "https://airqualitydashboardlogin.b2clogin.com/airqualitydashboardlogin.onmicrosoft.com/B2C_1_signupsignin"
     },
     forgotPassword: {
-      authority: "https://tomorrowairquality.b2clogin.com/tomorrowairquality.onmicrosoft.com/B2C_1_reset"
+      authority: "https://airqualitydashboardlogin.b2clogin.com/airqualitydashboardlogin.onmicrosoft.com/B2C_1_reset"
     }
   },
-  authorityDomain: "tomorrowairquality.b2clogin.com"
+  authorityDomain: "airqualitydashboardlogin.b2clogin.com"
 }
 
 export const msalConfig = {
   auth: {
-    clientId: "b01e5092-1803-4f0e-8932-200f49ca89fe",
+    clientId: "d4c9602a-0187-47df-a824-58c592af8d25",
     authority: b2cPolicies.authorities.signUpSignIn.authority,
     knownAuthorities: [b2cPolicies.authorityDomain],
-    redirectUri: "https://localhost:8000/",
-    postLogoutRedirectUri: 'https://localhost:8000/',
+    redirectUri: "https://air-quality-dashboard-daycare.vercel.app/",
+    postLogoutRedirectUri: 'https://air-quality-dashboard-daycare.vercel.app/',
     navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
     cache: {
       cacheLocation: "localStorage",

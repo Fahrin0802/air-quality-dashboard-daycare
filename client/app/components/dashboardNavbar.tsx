@@ -43,12 +43,12 @@ export function DashboardNavbar() {
                 an email address and secure password, redirecting to the registration form on request. */}
             {/* FR20 - Request.Login - The system should allow the user to request to login and redirect to the login form. */}
             <UnauthenticatedTemplate>
-              {/* <button
+              <button
                 className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
                 onClick={handleLoginRedirect}
               >
                 Login
-              </button> */}
+              </button>
             </UnauthenticatedTemplate>
             {/* Profile dropdown */}
             <AuthenticatedTemplate>
